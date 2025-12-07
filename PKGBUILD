@@ -72,7 +72,7 @@ if [[ "${_docs}" == "true" ]]; then
   )
 fi
 pkgver="0.0.0.0.0.0.0.0.0.1.1"
-_commit="0cc21a3a441f77e4ba37a044d7fad6d3261aa981"
+_commit="273abecd249944ada03796834f8d5c36941f5f07"
 pkgrel=1
 _pkgdesc=(
   "Termux shortcuts utilities."
@@ -131,8 +131,8 @@ _tag="${_commit}"
 _tag_name="commit"
 _tarname="${pkgname}-${_tag}"
 _tarfile="${_tarname}.${_archive_format}"
-_sum="9693194d5253278c0fd5fedb3f676a20f91aeac7be528f7fdd74d1d755cd64cd"
-_sig_sum="2780502a62b3e0090a9af4d617fff698e7d8802a48d3c9721d6f2637fcac286f"
+_sum="cdd30c3adb46d8749b9eb077187633825c46f5601e77a605892d29ccfdedbc91"
+_sig_sum="9e6dd8dfd779b601c07cdc79d0c2474b5857d017b0a95cb9310a47b09f95744b"
 _github_sum='SKIP'
 # Dvorak
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
