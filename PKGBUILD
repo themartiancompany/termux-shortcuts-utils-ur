@@ -104,6 +104,7 @@ _url="${url}"
 _tag="${_commit}"
 _tag_name="commit"
 _tarname="${pkgname}-${_tag}"
+_tarfile="${_tarname}.${_archive_format}"
 _sum="9693194d5253278c0fd5fedb3f676a20f91aeac7be528f7fdd74d1d755cd64cd"
 _sig_sum="2780502a62b3e0090a9af4d617fff698e7d8802a48d3c9721d6f2637fcac286f"
 _github_sum='SKIP'
