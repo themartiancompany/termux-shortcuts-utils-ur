@@ -79,7 +79,7 @@ arch=(
 )
 _http="https://github.com"
 _ns="themartiancompany"
-url="${_http}/${_ns}/${pkgname}"
+url="${_http}/${_ns}/${_pkg}"
 group=(
  "${_proj}"
 )
@@ -93,13 +93,20 @@ depends=(
 _os="$( \
   uname \
     -o)"
-optdepends=(
+_termux_shortcuts_utils_docs_optdepends=(
+  "${_pkg}-docs:"
+    "Termux Shortcuts Utilities"
+    "documentation"
+    "and manuals."
 )
-if [[ "${_os}" != "GNU/Linux" ]] && \
-   [[ "${_os}" == "Android" ]]; then
-  optdepends+=(
-  )
-fi
+_termux_shortcuts_utils_docs_ref_optdepends+=(
+ "${_pkg}:"
+   "The package this documentation"
+   "package pertains to."
+)
+optdepends=(
+  "${_termux_shortcuts_utils_docs_optdepends[*]}"
+)
 makedepends=(
   'make'
 )
@@ -193,17 +200,47 @@ check() {
     check
 }
 
-package() {
+package_termux-shortcuts-utils() {
+  local \
+    _make_opts=()
+  _make_opts+=(
+    PREFIX="/usr"
+    DESTDIR="${pkgdir}"
+  )
   cd \
     "${_tarname}"
   make \
-    PREFIX="/usr" \
-    DESTDIR="${pkgdir}" \
-    install
+    "${_make_opts[@]}" \
+    install-scripts
   install \
     -Dm644 \
     "COPYING" \
     "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}
+
+package_termux-shortcuts-utils-docs() {
+  local \
+    _make_opts=()
+  pkgdesc="${pkgdesc} (documentation)"
+  depends=()
+  optdepends=(
+    "${_termux_shortcuts_utils_docs_ref_optdepends[*]}"
+  )
+  _make_opts+=(
+    PREFIX="/usr"
+    DESTDIR="${pkgdir}"
+  )
+  cd \
+    "${_tarname}"
+  make \
+    "${_make_opts[@]}" \
+    install-doc \
+    install-man
+  install \
+    -Dm644 \
+    "COPYING" \
+    -t \
+    "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 # vim: ft=sh syn=sh et
