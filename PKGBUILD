@@ -57,7 +57,16 @@ elif [[ "${_git_http}" == "gitlab" ]]; then
   _archive_format="tar.gz"
 fi
 _proj="hip"
-pkgname=termux-shortcuts-utils
+_pkg=termux-shortcuts-utils
+pkgbase="${_pkg}"
+pkgname=(
+  "${pkgbase}"
+)
+if [[ "${_docs}" == "true" ]]; then
+  pkgname+=(
+    "${pkgbase}-docs"
+  )
+fi
 pkgver="0.0.0.0.0.0.0.0.0.1.1"
 _commit="0cc21a3a441f77e4ba37a044d7fad6d3261aa981"
 pkgrel=1
@@ -94,6 +103,11 @@ fi
 makedepends=(
   'make'
 )
+if [[ "${_docs}" == "true" ]]; then
+  makedepends+=(
+    "${_py}-docutils"
+  )
+fi
 checkdepends=(
   "shellcheck"
 )
