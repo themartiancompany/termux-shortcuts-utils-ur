@@ -59,7 +59,8 @@ fi
 if [[ ! -v "_docs" ]]; then
   _docs="true"
 fi
-_proj="hip"
+_py="python"
+_proj=hip
 _pkg=termux-shortcuts-utils
 pkgbase="${_pkg}"
 pkgname=(
