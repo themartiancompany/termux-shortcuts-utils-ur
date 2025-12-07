@@ -86,6 +86,7 @@ _ns="themartiancompany"
 url="${_http}/${_ns}/${_pkg}"
 group=(
  "${_proj}"
+ "android"
 )
 license=(
   'AGPL3'
