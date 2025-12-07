@@ -19,15 +19,47 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Maintainer: Truocolo <truocolo@aol.com>
-# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
+# Maintainers:
+#   Truocolo
+#     <truocolo@aol.com>
+#     <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+#   Pellegrino Prevete (dvorak)
+#     <pellegrinoprevete@gmail.com>
+#     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
 
-_offline="false"
-_git="false"
+_evmfs_available="$( \
+  command \
+    -v \
+    "evmfs" || \
+    true)"
+if [[ ! -v "_evmfs" ]]; then
+  if [[ "${_evmfs_available}" != "" ]]; then
+    _evmfs="true"
+  elif [[ "${_evmfs_available}" == "" ]]; then
+    _evmfs="false"
+  fi
+fi
+_os="$( \
+  uname \
+    -o)"
+if [[ ! -v "_git" ]]; then
+  _git="false"
+fi
+if [[ ! -v "_offline" ]]; then
+  _offline="false"
+fi
+if [[ ! -v "_git_http" ]]; then
+  _git_http="gitlab"
+fi
+if [[ "${_git_http}" == "github" ]]; then
+  _archive_format="zip"
+elif [[ "${_git_http}" == "gitlab" ]]; then
+  _archive_format="tar.gz"
+fi
 _proj="hip"
 pkgname=termux-shortcuts-utils
-pkgver="0.0.0.0.0.0.0.0.0.1"
-_commit="4e6905bf79361204921879210f305c8f61e748f4"
+pkgver="0.0.0.0.0.0.0.0.0.1.1"
+_commit="0cc21a3a441f77e4ba37a044d7fad6d3261aa981"
 pkgrel=1
 _pkgdesc=(
   "Termux shortcuts utilities."
@@ -54,10 +86,11 @@ _os="$( \
     -o)"
 optdepends=(
 )
-[[ "${_os}" != "GNU/Linux" ]] && \
-[[ "${_os}" == "Android" ]] && \
+if [[ "${_os}" != "GNU/Linux" ]] && \
+   [[ "${_os}" == "Android" ]]; then
   optdepends+=(
   )
+fi
 makedepends=(
   'make'
 )
@@ -71,37 +104,71 @@ _url="${url}"
 _tag="${_commit}"
 _tag_name="commit"
 _tarname="${pkgname}-${_tag}"
-[[ "${_offline}" == "true" ]] && \
-  url="file://${HOME}/${pkgname}"
-if [[ "${_git}" == true ]]; then
+_sum="9693194d5253278c0fd5fedb3f676a20f91aeac7be528f7fdd74d1d755cd64cd"
+_sig_sum="2780502a62b3e0090a9af4d617fff698e7d8802a48d3c9721d6f2637fcac286f"
+_github_sum='SKIP'
+# Dvorak
+_evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+# Truocolo
+_evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
+_evmfs_network="100"
+_evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+_evmfs_dir="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}"
+_evmfs_uri="${_evmfs_dir}/${_sum}"
+_evmfs_src="${_tarfile}::${_evmfs_uri}"
+_sig_uri="${_evmfs_dir}/${_sig_sum}"
+_sig_src="${_tarfile}.sig::${_sig_uri}"
+if [[ "${_evmfs}" == "true" ]]; then
   makedepends+=(
-    "git"
+    "evmfs"
   )
+  _src="${_evmfs_src}"
   source+=(
-    "${_tarname}::git+${_url}#${_tag_name}=${_tag}?signed"
+    "${_sig_src}"
   )
   sha256sums+=(
-    SKIP
+    "${_sig_sum}"
   )
-  validpgpkeys+=(
-    # Truocolo <truocolo@aol.com>
-    '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
-  )
-elif [[ "${_git}" == false ]]; then
-  if [[ "${_tag_name}" == 'pkgver' ]]; then
-    _tar="${_tarname}.tar.gz::${_url}/archive/refs/tags/${_tag}.tar.gz"
-    _sum='b245547bdcdbfeb09f400305a4b515b6d49635be90f560a39302761fc2688571'
-  elif [[ "${_tag_name}" == "commit" ]]; then
-    _tar="${_tarname}.zip::${_url}/archive/${_commit}.zip"
-    _sum='529d4045aa6d050f712a50d81dc740afcce934040c92a3ccd53be1aa1322f6ae'
+elif [[ "${_evmfs}" == "false" ]]; then
+  if [[ "${_git}" == true ]]; then
+    makedepends+=(
+      "git"
+    )
+    _src="${_tarname}::git+${_url}#${_tag_name}=${_tag}?signed"
+    _sum="SKIP"
+  elif [[ "${_git}" == false ]]; then
+    _uri=""
+    if [[ "${_git_http}" == "github" ]]; then
+      if [[ "${_tag_name}" == "commit" ]]; then
+        _uri="${_url}/archive/${_commit}.${_archive_format}"
+        _sum="${_github_sum}"
+      fi
+    elif [[ "${_git_http}" == "github" ]]; then
+      if [[ "${_tag_name}" == 'pkgver' ]]; then
+        _uri="${_url}/archive/refs/tags/${_tag}.${_archive_format}"
+      elif [[ "${_tag_name}" == "commit" ]]; then
+        _uri="${_url}/-/archive/${_tag}/${_tag}.${_archive_format}"
+      fi
+    fi
+    _src="${_tarfile}::${_uri}"
   fi
-  source+=(
-    "${_tar}"
-  )
-  sha256sums+=(
-    "${_sum}"
-  )
 fi
+source+=(
+  "${_src}"
+)
+sha256sums+=(
+  "${_sum}"
+)
+validpgpkeys=(
+  # Truocolo
+  #   <truocolo@aol.com>
+  '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
+  #   <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+  'F690CBC17BD1F53557290AF51FC17D540D0ADEED'
+  # Pellegrino Prevete (dvorak)
+  #   <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+  '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
+)
 
 check() {
   cd \
