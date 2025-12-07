@@ -56,6 +56,9 @@ if [[ "${_git_http}" == "github" ]]; then
 elif [[ "${_git_http}" == "gitlab" ]]; then
   _archive_format="tar.gz"
 fi
+if [[ ! -v "_docs" ]]; then
+  _docs="true"
+fi
 _proj="hip"
 _pkg=termux-shortcuts-utils
 pkgbase="${_pkg}"
