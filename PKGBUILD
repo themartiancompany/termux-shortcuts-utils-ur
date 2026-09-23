@@ -27,7 +27,7 @@
 #     <pellegrinoprevete@gmail.com>
 #     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
 
-_evmfs_available="$( \
+_evmfs_available="$(
   command \
     -v \
     "evmfs" || \
@@ -39,7 +39,7 @@ if [[ ! -v "_evmfs" ]]; then
     _evmfs="false"
   fi
 fi
-_os="$( \
+_os="$(
   uname \
     -o)"
 if [[ ! -v "_git" ]]; then
@@ -73,7 +73,7 @@ if [[ "${_docs}" == "true" ]]; then
 fi
 pkgver="0.0.0.0.0.0.0.0.0.1.1"
 _commit="273abecd249944ada03796834f8d5c36941f5f07"
-pkgrel=1
+pkgrel=2
 _pkgdesc=(
   "Termux shortcuts utilities."
 )
@@ -95,7 +95,7 @@ depends=(
   "findutils"
   "libcrash-bash"
 )
-_os="$( \
+_os="$(
   uname \
     -o)"
 _termux_shortcuts_utils_docs_optdepends=(
