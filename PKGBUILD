@@ -73,7 +73,7 @@ if [[ "${_docs}" == "true" ]]; then
 fi
 pkgver="0.0.0.0.0.0.0.0.0.1.1"
 _commit="273abecd249944ada03796834f8d5c36941f5f07"
-pkgrel=2
+pkgrel=3
 _pkgdesc=(
   "Termux shortcuts utilities."
 )
