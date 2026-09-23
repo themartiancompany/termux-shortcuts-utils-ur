@@ -48,8 +48,12 @@ fi
 if [[ ! -v "_offline" ]]; then
   _offline="false"
 fi
+if [[ ! -v "_git_service" ]]; then
+  _git_service="gitlab"
+  _git_service="github"
+fi
 if [[ ! -v "_git_http" ]]; then
-  _git_http="gitlab"
+  _git_http="${_git_service}"
 fi
 if [[ "${_git_http}" == "github" ]]; then
   _archive_format="zip"
@@ -73,7 +77,7 @@ if [[ "${_docs}" == "true" ]]; then
 fi
 pkgver="0.0.0.0.0.0.0.0.0.1.1"
 _commit="273abecd249944ada03796834f8d5c36941f5f07"
-pkgrel=3
+pkgrel=4
 _pkgdesc=(
   "Termux shortcuts utilities."
 )
