@@ -1160,9 +1160,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-android-life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-android-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   arch_release:
@@ -1969,9 +1969,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-gnu-life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-gnu-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   msys2_release:
@@ -2509,9 +2509,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-windows-life-keyring-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-windows-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
 
