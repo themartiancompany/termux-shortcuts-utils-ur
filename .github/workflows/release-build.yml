@@ -1165,6 +1165,23 @@ jobs:
             "dogeos-android-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
+      - name:
+          Upload the Android package (termux-shortcuts-utils-docs).
+        uses:
+          actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN:
+            ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url:
+            ${{ github.event.release.upload_url }}
+            # ${{ steps.create_release.outputs.upload_url }}
+          asset_path:
+            "termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_name:
+            "dogeos-android-termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_content_type:
+            application/gzip
   arch_release:
     name:
       Life and DogeOS GNU Base (Arch Linux) binary packages.
@@ -1974,6 +1991,23 @@ jobs:
             "dogeos-gnu-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
+      - name:
+          Uploads GNU package (termux-shortcuts-utils-docs).
+        uses:
+          actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN:
+            ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url:
+            ${{ github.event.release.upload_url }}
+            # ${{ steps.create_release.outputs.upload_url }}
+          asset_path:
+            "termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_name:
+            "dogeos-gnu-termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_content_type:
+            application/gzip
   msys2_release:
     name:
       Life and DogeOS Windows base packages (CI).
@@ -2498,7 +2532,7 @@ jobs:
         id:
           version
       - name:
-          Upload Windows package.
+          Upload Windows package (termux-shortcuts-utils).
         uses:
           actions/upload-release-asset@v1
         env:
@@ -2512,6 +2546,23 @@ jobs:
             "termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
             "dogeos-windows-termux-shortcuts-utils-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_content_type:
+            application/gzip
+      - name:
+          Upload Windows package (termux-shortcuts-utils-docs).
+        uses:
+          actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN:
+            ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url:
+            ${{ github.event.release.upload_url }}
+            # ${{ steps.create_release.outputs.upload_url }}
+          asset_path:
+            "termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+          asset_name:
+            "dogeos-windows-termux-shortcuts-utils-docs-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
 
